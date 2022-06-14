@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crea un usuario</title>
+
+    {% load static %}
+    <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet">
+    <script src="{% static 'js/reloj.js' %}"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      function CambiaColor(a)
+              {
+                  a.style.background = "rgb(216, 192, 233)";
+              }
+      function MostrarFecha() 
+        {   document.getElementById('demo').innerHTML = Date();
+         
+        }        
+   </script>
+
+</head>
+<body class="body">
+
+  <!--menú responsive-->
+    <nav class="navbar navbar-expand-sm">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#opciones">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <a class="navbar-brand" href="{% url 'inicio' %}">
+          <img src="{% static 'img/logo.jpg' %}" width="30" height="30" alt="">
+        </a>
+        
+        <div class="collapse navbar-collapse" id="opciones">   
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'somos' %}">Quienes Somos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'galeria' %}">Galeria de fotos</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" href="{% url 'registro' %}">Registro</a>
+            </li> 
+            <li class="nav-item">
+              <input type="button" class="btn btn-primary" onclick="MostrarFecha()" value="Mostrar fecha">
+              <p id="demo"></p>
+            </li>        
+          </ul>
+        </div>
+      </nav>     
+  <!--menú responsive--> 
+
+  <div class="container-fluid" style="padding-left: 15%;">
+    <div class="row">
+    <h1 style="text-align: center;" onmouseover= "style.color = 'white'" onmouseout="style.color = 'black'"><ins>
+        Registro</ins></h1> 
+    </div><br>
+    
+    {% if user.is_authenticated %}
+        <div class="row">
+            <form id="formulario" action="#" method="POST">
+                {%csrf_token%}
+                <div class="form-group">
+                    {{cliente_form.rut.label}}
+                    {{cliente_form.rut}}
+                </div>    
+            
+                <div class="form-group">
+                    {{cliente_form.nombre.label}}
+                    {{cliente_form.nombre}}
+                </div>
+            
+                <div class="form-group">
+                    {{cliente_form.email.label}}
+                    {{cliente_form.email}}
+                </div>
+                              
+                <div class="form-group">
+                    <label for="fecha">Fecha Nacimiento</label><br>
+                    <input type="date" name="fecha" required><br><br>
+                </div>
+            
+                <div class="form-group">
+                    <label for="password">Contraseña</label><br>
+                    <input onfocus="CambiaColor(this)" type="password" placeholder="Ingrese Contraseña" name="password" required><br><br>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password2">Repetir Contraseña</label><br>
+                    <input onfocus="CambiaColor(this)" type="password" placeholder="Reingrese Contraseña" name="password2" required><br><br>
+                </div>
+                          
+                <div class="form-group">  
+                    <label for="comuna">Elija Su comuna</label><br>
+                    <select name="comuna">
+                        <option value="">Seleccione Comuna</option>
+                        <option value="maipu">Maipú</option>
+                        <option value="florida">La Florida</option>
+                        <option value="puente">Puente Alto</option>
+                        <option value="cisterna">La Cisterna</option>
+                        <option value="otras">Otras Comunas</option>
+                    </select>
+                </div> <br><br>
+      
+                <div class="row">
+                    <div class="col-md">
+                        <input type="submit" value="Enviar" class="btn btn-success" id="enviar">
+                        <input type="reset" value="Limpiar" class="btn btn-danger" id="limpiar">
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% else %}
+        <br><br><br>
+        <h1  style="color:red; text-align: center;">No tiene permisos para agregar clientes </h1>
+        {% endif %}
+</div>
+</body>
+
+<footer class=" footer text-lg-start">
+  <!-- Section: Social media -->
+  <!-- Section: Social media -->
+
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            <i class="fas fa-gem me-3"></i>WebMascota
+          </h6>
+          <p>
+            Emprendimiento surgido recientemente por estudiantes de DuocUC<br>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Productos
+          </h6>
+          <p>
+            <a href="{% url 'somos' %}" class="text-reset">Quienes Somos</a>
+          </p>
+          <p>
+            <a href="{% url 'galeria' %}" class="text-reset">Galeria</a>
+          </p>
+          <p>
+            <a href="{% url 'registro' %}" class="text-reset">Registro</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Contact-
+          </h6>
+          <p><i class="fas fa-home me-3"></i> Av. Esq. Blanca 501, Maipú, Región Metropolitana</p>
+          <p>
+            <i class="fas fa-envelope me-3"></i>
+            lu.painevilo@duocuc.cl<br>
+            ag.fuentes@duocuc.cl
+          </p>           
+        </div>
+        <!-- Grid column --> 
+      </div>
+      <hr>
+      <!-- Grid row -->
+      <form id="validacion" action="{% url 'respuesta' %}" method="post" name="respuesta">
+        {%csrf_token%}
+      <div class="form-group">
+        <label for="email">Tu correo: </label>
+        <input onfocus="CambiaColor(this)" type="email" placeholder="Ingrese Correo" name="email" required><br><br>
+        <label for="comentario">Dejanos un comentario!:</label>
+        <textarea onfocus="CambiaColor(this)" class="form-control" rows="5" id="comentario" required></textarea>
+      </div>
+      <input type="submit" value="Enviar">
+
+    </form>
+    </div>
+  </section>
+  <!-- Section: Links  -->
+  <div class="container-fluid">
+      <div class="wrap">
+        <div class="widget" >
+          <div class="reloj"  style="background-color: rgb(196, 192, 233);">       
+            <p id="horas" class="horas"></p>
+            <p>:</p>
+            <p id="minutos" class="minutos"></p>
+            <p>:</p>
+            <div class="ampm_segundos">
+              <p id="ampm" class="ampm"></p>
+              <p id="segundos" class="segundos"></p>
+            </div>
+          </div>   
+      </div>
+    </div>
+  </div>
+  <script src="{% static 'js/reloj.js' %}"></script>
+  <!-- Copyright -->
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    Luciano Painevilo<br>Agustin Fuentes<br>@Copyrigth Derechos reservados.
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</html>
